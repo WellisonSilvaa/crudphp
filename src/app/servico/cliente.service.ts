@@ -23,4 +23,9 @@ export class ClienteService {
   remove(id: any){
     return this.http.delete(this.url + "/?id=" + id);
   }
+
+  create(cliente: Cliente){
+    return this.http.post(this.url, cliente);
+  }
+
 }
