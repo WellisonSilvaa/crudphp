@@ -8,8 +8,16 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'home',
+    redirectTo: 'cliente',
     pathMatch: 'full'
+  },
+  {
+    path: 'cliente',
+    loadChildren: () => import('./pagina/cliente/cliente.module').then( m => m.ClientePageModule)
+  },
+  {
+    path: 'modalcliente',
+    loadChildren: () => import('./pagina/modalcliente/modalcliente.module').then( m => m.ModalclientePageModule)
   },
 ];
 
