@@ -1,6 +1,6 @@
-import { ClienteService } from './../../servico/cliente.service';
+import { Cliente, ClienteService } from './../../servico/cliente.service';
 import { ModalController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -9,6 +9,13 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./modalcliente.page.scss'],
 })
 export class ModalclientePage implements OnInit {
+  @Input() c: Cliente | undefined;
+  atualizar = false;
+  dados ={
+    nome: '',
+    cidade: '',
+    email: ''
+  }
 
   constructor(
     private modalCtrl: ModalController,
@@ -18,6 +25,12 @@ export class ModalclientePage implements OnInit {
    }
 
   ngOnInit() {
+    if(this.c){
+      // console.log("atualizar");
+      this.atualizar = true;
+      this.dados = this.c;
+
+    }
   }
 
   fecharModal(){
@@ -27,9 +40,15 @@ export class ModalclientePage implements OnInit {
   enviando(form: NgForm){
     // console.log(form.value);
     const cliente = form.value;
-    this.service.create(cliente).subscribe(response =>{
-      this.modalCtrl.dismiss(response);
-    })
+    if(this.atualizar){
+      this.service.update(cliente).subscribe(response =>{
+        this.modalCtrl.dismiss(response);
+      })
+    }else{
+      this.service.create(cliente).subscribe(response =>{
+        this.modalCtrl.dismiss(response);
+      })
+    }
   }
 
 }

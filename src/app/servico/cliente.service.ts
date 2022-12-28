@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { identity } from 'rxjs';
 
 export interface Cliente{
   id: string;
@@ -26,6 +27,10 @@ export class ClienteService {
 
   create(cliente: Cliente){
     return this.http.post(this.url, cliente);
+  }
+
+  update(cliente: Cliente){
+    return this.http.put(this.url+"/?id="+identity, cliente);
   }
 
 }

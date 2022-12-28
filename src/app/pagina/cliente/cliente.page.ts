@@ -42,4 +42,17 @@ export class ClientePage implements OnInit {
     })
   }
 
+  atualizar(c: Cliente){
+    // console.log(c);
+    this.modalCtrl.create({
+      component: ModalclientePage,
+      componentProps: {c}
+    }).then(modal =>{
+      modal.present()
+      return modal.onDidDismiss();
+   }).then(({data}) => {
+     this.ngOnInit();
+   })
+  }
+
 }
